@@ -1,0 +1,35 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - New project{% endblock %}
+
+{% block project %}
+	<h2>New project</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li class="active">New project</li>
+{% endblock %}
+
+{% block body %}
+<div class="well form-horizontal">
+	<form method="post" {{ form_enctype(form) }}>
+		<div class="row">
+			{{ form_label(form.name, "Name: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}
+			{{ form_widget(form.name, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.name) }}
+		</div>
+		<div class="row">
+			{{ form_label(form.website, "Website: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}
+			{{ form_widget(form.website, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3"}}) }}
+		</div>
+		<div class="row">
+			{{ form_label(form.icon.file, "Icon: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}
+			{{ form_widget(form.icon.file, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.icon.file) }}
+		</div>
+		{{ form_rest(form) }}
+		<input type="submit" class="btn btn-primary" value="Create" />
+	</form>
+</div>
+{% endblock%}

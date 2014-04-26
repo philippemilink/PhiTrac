@@ -1,0 +1,8 @@
+ {% if project.icon != null %}
+    <div class="thumbnail pull-left hidden-xs">
+	    <img src="{{ app.request.basePath ~ '/uploads/img/' ~ project.icon.id ~ '.' ~ project.icon.extension }}" alt="{{ project.icon.alt }}" />
+    </div>
+{% endif %}
+<h1>
+    {{ project.name }}		
+</h1>

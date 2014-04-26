@@ -1,0 +1,32 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ project.name }}{% endblock %}
+
+{% block project %}
+    {{ render(controller("PhiTracProjectBundle:Project:header", {"project": project})) }}
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li><a href="{{ path('show_item', {'project_slug': project.slug, 'item_slug': item.slug }) }}">{{ item.title }}</a></li>
+    <li class="active">Delete</li>
+{% endblock %}
+
+{% block body %}
+    <h3>Delete item <i>{{ item.title }}</i> ?</h3>
+    
+    {% if item.description!=null %}
+        <p>{{ item.description|nl2br }}</p>
+    {% endif %}
+    
+    <p>Are you sure you want delete this item ?</p>
+    
+    <form action="{{ path('delete_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" method="post">
+        <a href="{{ path('show_item', {'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">
+             No
+        </a>
+        <input type="submit" value="Yes" class="btn btn-danger" />
+        {{ form_rest(form) }}
+    </form>
+{% endblock%}

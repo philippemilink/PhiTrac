@@ -1,0 +1,55 @@
+# Project:
+home_project:
+    path: /{slug}
+    defaults: { _controller: PhiTracProjectBundle:Project:home, slug: 0 }
+
+new_project:
+    path: /add/
+    defaults: { _controller: PhiTracProjectBundle:Project:add } 
+
+edit_project:
+    path: /edit/{slug}
+    defaults: { _controller: PhiTracProjectBundle:Project:edit }
+
+delete_project:
+    path: /delete/{slug}
+    defaults: { _controller: PhiTracProjectBundle:Project:delete }
+
+
+# Item:
+add_item:
+    path: /{slug}/add_item
+    defaults: { _controller: PhiTracProjectBundle:Items:add }
+
+show_item:
+    path: /{project_slug}/show/{item_slug}
+    defaults: { _controller: PhiTracProjectBundle:Items:show }
+
+edit_item:
+    path: /{project_slug}/edit/{item_slug}
+    defaults: { _controller: PhiTracProjectBundle:Items:edit }
+
+delete_item:
+    path: /{project_slug}/delete/{item_slug}
+    defaults: { _controller: PhiTracProjectBundle:Items:delete }
+
+close_item:
+    path: /{project_slug}/close/{item_slug}
+    defaults: { _controller: PhiTracProjectBundle:Items:close }
+
+reopen_item:
+    path: /{project_slug}/reopen/{item_slug}
+    defaults: { _controller: PhiTracProjectBundle:Items:reopen }
+
+# Image:
+set_icon:
+    path: /{slug}/set_icon
+    defaults: { _controller: PhiTracProjectBundle:Project:setIcon }
+
+delete_icon:
+    path: /{slug}/delete_icon
+    defaults: { _controller: PhiTracProjectBundle:Project:deleteIcon }
+
+    
+
+   

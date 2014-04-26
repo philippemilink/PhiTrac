@@ -1,0 +1,11 @@
+phi_trac_project:
+    resource: "@PhiTracProjectBundle/Resources/config/routing.yml"
+    prefix:   /project
+
+empty_route:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /project
+        permanent: true
+

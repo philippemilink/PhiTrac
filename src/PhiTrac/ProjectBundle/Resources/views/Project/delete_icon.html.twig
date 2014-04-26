@@ -1,0 +1,32 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ project.name }}{% endblock %}
+
+{% block project %}
+    {% if project.icon != null %}
+	    <div class="thumbnail pull-left hidden-xs">
+		    <img src="{{ app.request.basePath ~ '/uploads/img/' ~ project.icon.id ~ '.' ~ project.icon.extension }}" alt="{{ project.icon.alt }}" />
+	    </div>
+    {% endif %}
+	<h1>{{ project.name }}</h1>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li class="active">Delete icon</li>
+{% endblock %}
+
+{% block body %}
+    <h3>Delete icon of the project {{ project.name }} ?</h3>
+    
+    <p>Are you sure you want delete its icon ?</p>
+    
+    <form action="{{ path('delete_icon', {'slug': project.slug }) }}" method="post">
+        <a href="{{ path('home_project', {'slug': project.slug }) }}" class="btn btn-default">
+             No
+        </a>
+        <input type="submit" value="Yes" class="btn btn-danger" />
+        {{ form_rest(form) }}
+    </form>
+{% endblock%}

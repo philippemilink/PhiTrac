@@ -1,0 +1,43 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ project.name }}{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li class="active">{{ project.name }}</li>
+{% endblock %}
+
+{% block project %}
+    {% if project.icon != null %}
+	    <div class="thumbnail pull-left hidden-xs">
+		    <img src="{{ app.request.basePath ~ '/uploads/img/' ~ project.icon.id ~ '.' ~ project.icon.extension }}" alt="{{ project.icon.alt }}" />
+	    </div>
+    {% endif %}
+	<h1>{{ project.name }}
+		<a href="{{ path('edit_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Edit</a>
+		{% if project.icon == null %}
+		    <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Add an icon</a>
+	    {% else %}
+	        <div class="btn-group">
+	            <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Change icon</a> 
+	            <a href="{{ path('delete_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete icon</a>
+            </div>
+        {% endif %}
+		<a href="{{ path('delete_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete</a>				
+	</h1>
+	<p>
+	    {% if project.website != null %}
+		    <strong>Website:</strong> <a href="{{ project.website }}">{{ project.website }}</a><br />
+	    {% endif %}
+	</p>
+{% endblock %}
+
+{% block body %}
+    {{ render(controller("PhiTracProjectBundle:Items:getItemsDashboard", { 'slug': project.slug })) }}
+{% endblock%}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dashboard_project.js') }}" type="text/javascript"></script>
+{% endblock %}

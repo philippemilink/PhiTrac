@@ -1,0 +1,49 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - New item{% endblock %}
+
+{% block project %}
+	{{ render(controller("PhiTracProjectBundle:Project:header", {"project": project})) }}
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li class="active">Add a task</li>
+{% endblock %}
+
+{% block body %}
+<h3>New Item</h3>
+
+<div class="well form-horizontal">
+	<form method="post" {{ form_enctype(form) }}>
+	    <div class="row">
+	        {{ form_label(form.title, "Title: ", { "label_attr": { "class": "col-xs-3 col-sm-2 col-lg-2"}}) }}
+			{{ form_widget(form.title, { "attr": { "class": "col-xs-9 col-sm-10 col-md-10 col-lg-10"}}) }}
+			{{ form_errors(form.title) }}
+	    </div>
+	    <div class="row">
+	        {{ form_label(form.type, "Type: ", { "label_attr": { "class": "col-xs-3 col-sm-2 col-lg-2"}}) }}
+			{{ form_widget(form.type, { "attr": { "class": "col-xs-9 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.type) }}
+	    </div>
+	    <div class="row">
+	        {{ form_label(form.status, "Status: ", { "label_attr": { "class": "col-xs-3 col-sm-2 col-lg-2"}}) }}
+			{{ form_widget(form.status, { "attr": { "class": "col-xs-9 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.status) }}
+	    </div>
+	    <div class="row">
+	        {{ form_label(form.priority, "Priority: ", { "label_attr": { "class": "col-xs-3 col-sm-2 col-lg-2"}}) }}
+			{{ form_widget(form.priority, { "attr": { "class": "col-xs-9 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.priority) }}
+	    </div>
+	    <div class="row">
+	        {{ form_label(form.description, "Description: ", { "label_attr": { "class": "col-xs-3 col-sm-2 col-lg-2"}}) }}
+			{{ form_widget(form.description, { "attr": { "class": "col-xs-9 col-sm-10 col-md-10 col-lg-10"}}) }}
+			{{ form_errors(form.description) }}
+	    </div>
+		{{ form_rest(form) }}
+		<input type="submit" class="btn btn-primary" value="Add" />
+	</form>
+</div>
+{% endblock%}

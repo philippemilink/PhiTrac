@@ -1,0 +1,35 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Set icon of the project{% endblock %}
+
+{% block project %}
+	{% if project.icon != null %}
+	    <div class="thumbnail pull-left hidden-xs">
+		    <img src="{{ app.request.basePath ~ '/uploads/img/' ~ project.icon.id ~ '.' ~ project.icon.extension }}" alt="{{ project.icon.alt }}" />
+	    </div>
+    {% endif %}
+	<h1>{{ project.name }}</h1>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li class="active">Set icon</li>
+{% endblock %}
+
+{% block body %}
+<div class="well form-horizontal">
+	<form method="post" {{ form_enctype(form) }}>
+		<div class="row">
+			{{ form_label(form.file, "Icon: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}
+			{{ form_widget(form.file, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3"}}) }}
+			{{ form_errors(form.file) }}
+		</div>
+		{{ form_rest(form) }}
+		<a href="{{ path('home_project', {'slug': project.slug }) }}" class="btn btn-default">
+             Back
+        </a>
+		<input type="submit" class="btn btn-primary" value="Set icon" />
+	</form>
+</div>
+{% endblock%}
