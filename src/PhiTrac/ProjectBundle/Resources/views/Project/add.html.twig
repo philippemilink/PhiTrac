@@ -21,7 +21,8 @@
 		</div>
 		<div class="row">
 			{{ form_label(form.website, "Website: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}
-			{{ form_widget(form.website, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3"}}) }}
+			{{ form_widget(form.website, { "attr": { "class": "col-xs-8 col-sm-4 col-md-3", "placeholder": "http://"}}) }}
+			{{ form_errors(form.website) }}
 		</div>
 		<div class="row">
 			{{ form_label(form.icon.file, "Icon: ", { "label_attr": { "class": "col-xs-4 col-sm-2 col-lg-1"}}) }}

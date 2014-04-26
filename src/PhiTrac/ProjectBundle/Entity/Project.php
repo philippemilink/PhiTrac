@@ -6,14 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Project
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="PhiTrac\ProjectBundle\Entity\ProjectRepository")
+ * @ORM\HasLifecycleCallbacks
  *
  * @UniqueEntity("name")
+ * @Assert\Callback(methods={"checkWebsite"})
  */
 class Project
 {
@@ -50,6 +53,7 @@ class Project
      * @var string
      *
      * @ORM\Column(name="website", type="text", nullable=true)
+     * @Assert\Url()
      */
     private $website;
     
@@ -74,6 +78,17 @@ class Project
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->todo = 0;
         $this->tempIconPathName = null;
+    }
+    
+    public function checkWebsite(ExecutionContextInterface $context)
+    {
+        if ($this->website==null) {
+            return;
+        }
+        
+        if (!preg_match("#^http://|https://#", $this->website)) { // website doesn't begin by 'http://' or 'https://'
+            $this->website = "http://" . $this->website;
+        }
     }
     
     /**
