@@ -1,0 +1,47 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Create new user{% endblock %}
+
+{% block project %}
+	<h2>Create a new user</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('administration_home') }}">Administration</a></li>
+    <li class="active">Create a new user</li>
+{% endblock %}
+
+{% block body %}
+<div class="well form-horizontal">
+	<form method="post">
+        <div class="row">
+            {{ form_label(form.username, "Username:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.username, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.username) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.firstname, "Firstname:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.firstname, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.firstname) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.name, "Name:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.name, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.name) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.password, "Password:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.password, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.password) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.roles, "Category:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.roles, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.roles) }}
+        </div>
+        {{ form_rest(form) }}
+		<input type="submit" class="btn btn-primary" value="Create" />
+	</form>
+</div>
+{% endblock%}

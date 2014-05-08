@@ -14,16 +14,18 @@
 	    </div>
     {% endif %}
 	<h1>{{ project.name }}
-		<a href="{{ path('edit_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Edit</a>
-		{% if project.icon == null %}
-		    <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Add an icon</a>
-	    {% else %}
-	        <div class="btn-group">
-	            <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Change icon</a> 
-	            <a href="{{ path('delete_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete icon</a>
-            </div>
-        {% endif %}
-		<a href="{{ path('delete_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete</a>				
+	    {% if is_granted('ROLE_ADMIN') %}
+		    <a href="{{ path('edit_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Edit</a>
+		    {% if project.icon == null %}
+		        <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Add an icon</a>
+	        {% else %}
+	            <div class="btn-group">
+	                <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Change icon</a> 
+	                <a href="{{ path('delete_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete icon</a>
+                </div>
+            {% endif %}
+		    <a href="{{ path('delete_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete</a>
+	    {% endif %}				
 	</h1>
 	<p>
 	    {% if project.website != null %}

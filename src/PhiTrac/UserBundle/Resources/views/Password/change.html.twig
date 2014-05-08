@@ -1,0 +1,45 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Change password{% endblock %}
+
+{% block project %}
+	<h2>Change password for {{ user.firstname ~ " " ~ user.name }}</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    {% if user != app.user %}
+        <li><a href="{{ path('administration_home') }}">Administration</a></li>
+        <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">{{ user.firstname ~ " " ~ user.name }} - Profile</a></li>
+    {% else %}
+        <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">Profile</a></li>
+    {% endif %}
+    <li class="active">Change password</li>
+{% endblock %}
+
+{% block body %}
+{% if errors != null %}
+    <div class="alert alert-danger">{{ errors }}</div>
+{% endif %}
+<div class="well form-horizontal">
+	<form method="post">        
+        <div class="row">
+            {{ form_label(form.currentPassword, "Current password:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.currentPassword, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.currentPassword) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.newPassword, "New password:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.newPassword, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.newPassword) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.verification, "Verification:", {"label_attr": {"class": "col-xs-4 col-sm-3 col-md-3 col-lg-2"}}) }}
+            {{ form_widget(form.verification, {"attr": {"class": "col-xs-8 col-sm-5 col-md-3 col-lg-2"}}) }} 
+            {{ form_errors(form.verification) }}
+        </div>
+        {{ form_rest(form) }}
+		<input type="submit" class="btn btn-primary" value="Change password" />
+	</form>
+</div>
+{% endblock%}

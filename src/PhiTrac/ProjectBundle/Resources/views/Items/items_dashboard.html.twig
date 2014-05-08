@@ -4,7 +4,9 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						Bugs
-						<a href="{{ path('add_item', { 'slug': project.slug, 'type': 'BUG' }) }}" class="btn btn-default btn-xs">Report a bug</a>
+						{% if is_granted('ROLE_TESTER') %}
+						    <a href="{{ path('add_item', { 'slug': project.slug, 'type': 'BUG' }) }}" class="btn btn-default btn-xs">Report a bug</a>
+					    {% endif %}
 					</h3>
 				</div>
 				<div class="list-group" id="list-bugs">
@@ -17,10 +19,12 @@
 			                    {% if item.priority=='IMPORTANT' %}
 				                    <span class="label label-warning">Important</span>
 			                    {% endif %}
-						        <button class="btn btn-default btn-xs pull-right" style="display: none;" id="btn_close">
-						            Close
-						            <span class="hidden">{{ "http://" ~ app.request.httpHost ~ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}</span>
-					            </button>
+			                    {% if is_granted('ROLE_DEV') %}
+						            <button class="btn btn-default btn-xs pull-right" style="display: none;" id="btn_close">
+						                Close
+						                <span class="hidden">{{ "http://" ~ app.request.httpHost ~ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}</span>
+					                </button>
+				                {% endif %}
 					        </a>
 			            {% endif %}
 			        {% endfor %}
@@ -33,7 +37,9 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						To do
-						<a href="{{ path('add_item', { 'slug': project.slug, 'type': 'TODO' }) }}" class="btn btn-default btn-xs">Add a task</a>
+						{% if is_granted('ROLE_TESTER') %}
+						    <a href="{{ path('add_item', { 'slug': project.slug, 'type': 'TODO' }) }}" class="btn btn-default btn-xs">Add a task</a>
+					    {% endif %}
 					</h3>
 				</div>
 				<div class="list-group" id="list-todo">
@@ -46,10 +52,12 @@
 			                    {% if item.priority=='IMPORTANT' %}
 				                    <span class="label label-warning">Important</span>
 			                    {% endif %}
-						        <button class="btn btn-default btn-xs pull-right" style="display:none;" id="btn_close">
-						            Close
-						            <span class="hidden">{{ "http://" ~ app.request.httpHost ~ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}</span>
-					            </button>
+			                    {% if is_granted('ROLE_DEV') %}
+						            <button class="btn btn-default btn-xs pull-right" style="display:none;" id="btn_close">
+						                Close
+						                <span class="hidden">{{ "http://" ~ app.request.httpHost ~ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}</span>
+					                </button>
+				                {% endif %}
 					        </a>
 			            {% endif %}
 			        {% endfor %}

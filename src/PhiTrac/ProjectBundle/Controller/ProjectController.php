@@ -4,6 +4,7 @@ namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Entity\Image;
@@ -34,11 +35,15 @@ class ProjectController extends Controller
 		}
     }
     
-    /*
+    /**
     * Create a new project
     */ 
 	public function addAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
 		$project = new Project();
 		
 		$form = $this->createForm(new ProjectType, $project);
@@ -59,13 +64,17 @@ class ProjectController extends Controller
         return $this->render('PhiTracProjectBundle:Project:add.html.twig', array('form' => $form->createView()));
     }
     
-    /*
+    /**
     * Edit a project
     * GET method: show the form to edit the project
     * POST method: edit the project and redirect to the project homepage
     */
 	public function editAction(Project $project) 
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $form = $this->createForm(new ProjectEditType, $project);
 		
         $request = $this->get('request');
@@ -84,13 +93,17 @@ class ProjectController extends Controller
         return $this->render('PhiTracProjectBundle:Project:edit.html.twig', array('project' => $project, 'form' => $form->createView()));
     }
 
-    /*
+    /**
     * Delete a project
     * GET method: ask confirmation to delete the project
     * POST method: delete the project and redirect to the empty homepage
     */ 
 	public function deleteAction(Project $project)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $form = $this->createFormBuilder()->getForm();
         
         if ($this->get('request')->getMethod()=='POST') {
@@ -103,13 +116,17 @@ class ProjectController extends Controller
 		return $this->render('PhiTracProjectBundle:Project:delete.html.twig', array('project' => $project, 'form' => $form->createView()));
     }
     
-    /*
+    /**
     * Set icon of a project
     * GET method: show the form to set the icon
     * POST method: edit the project and create the icon entity
     */
 	public function setIconAction(Project $project) 
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $icon = new Image();
 
         $form = $this->createForm(new ImageType, $icon);
@@ -139,13 +156,17 @@ class ProjectController extends Controller
         return $this->render('PhiTracProjectBundle:Project:set_icon.html.twig', array('project' => $project, 'form' => $form->createView()));
     }
     
-    /*
+    /**
     * Delete this icon of a project
     * GET method: ask confirmation to delete the icon
     * POST method: delete the icon and redirect to the project homepage
     */ 
 	public function deleteIconAction(Project $project)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         if ($project->getIcon()==null) {
             throw $this->createNotFoundException('This project has not an icon.');
         }

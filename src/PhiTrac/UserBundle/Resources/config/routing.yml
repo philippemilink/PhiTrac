@@ -1,0 +1,30 @@
+# Public
+login:
+    pattern: /login
+    defaults: { _controller: PhiTracUserBundle:Security:login }
+
+login_check:
+    pattern: /login_check
+    
+logout:
+    pattern: /logout
+
+
+# Personal
+profile_show:
+    pattern: /profile/{slug}
+    defaults: { _controller: PhiTracUserBundle:Profile:show }
+
+change_password:
+    pattern: /change_password/{slug}
+    defaults: { _controller: PhiTracUserBundle:Password:change }
+
+
+# Administration
+administration_home:
+    pattern: /admin
+    defaults: { _controller: PhiTracUserBundle:Administration:home }
+    
+create_user:
+    pattern: /admin/create_user
+    defaults: { _controller: PhiTracUserBundle:Administration:createUser }

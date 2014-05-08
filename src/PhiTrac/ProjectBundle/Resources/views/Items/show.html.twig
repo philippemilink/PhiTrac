@@ -37,31 +37,37 @@
                 {{ item.description|nl2br }}
             {% endif %}
         </div>
-        <div class="panel-footer">
-            {% if item.status!="DONE" %}
-                <form method="post" {{ form_enctype(form) }}>
+         {% if is_granted('ROLE_TESTER') %}
+            <div class="panel-footer">
+                {% if item.status!="DONE" %}
+                     {% if is_granted('ROLE_DEV') %}
+                        <form method="post" {{ form_enctype(form) }}>
+                            <div class="input-group col-lg-3">
+                                <span class="input-group-btn">
+                                    <a href="{{ path('edit_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Edit</a>
+                                    <a href="{{ path('delete_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Delete</a>
+                                </span>
+                                {{ form_widget(form.status, { "attr": { "class": "form-control"}}) }}
+                                <span class="input-group-btn">
+                                    <input class="btn btn-default" type="submit" value="Save" />
+                                    <a href="{{ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Close</a>
+                                </span>
+                            </div>
+                            {{ form_rest(form) }}
+                        </form>
+                    {% endif %}
+                {% else %}
                     <div class="input-group col-lg-3">
                         <span class="input-group-btn">
-                            <a href="{{ path('edit_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Edit</a>
-                            <a href="{{ path('delete_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Delete</a>
-                        </span>
-                        {{ form_widget(form.status, { "attr": { "class": "form-control"}}) }}
-                        <span class="input-group-btn">
-                            <input class="btn btn-default" type="submit" value="Save" />
-                            <a href="{{ path('close_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Close</a>
+                             {% if is_granted('ROLE_DEV') %}
+                                <a href="{{ path('edit_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Edit</a>
+                                <a href="{{ path('delete_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Delete</a>
+                            {% endif %}
+                                <a href="{{ path('reopen_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Reopen</a>
                         </span>
                     </div>
-                    {{ form_rest(form) }}
-                </form>
-            {% else %}
-                <div class="input-group col-lg-3">
-                    <span class="input-group-btn">
-                        <a href="{{ path('edit_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Edit</a>
-                        <a href="{{ path('delete_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Delete</a>
-                        <a href="{{ path('reopen_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Reopen</a>
-                    </span>
-                </div>
-            {% endif %}
-        </div>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock%}
