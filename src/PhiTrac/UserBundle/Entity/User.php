@@ -82,6 +82,10 @@ class User implements UserInterface
         $this->salt = bin2hex(hash('sha256', uniqid(mt_rand(), true), true));
     }
 
+    public function __toString(){
+        return $this->getSlug();
+    }
+
 
     /**
      * Get id

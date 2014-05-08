@@ -44,7 +44,7 @@ class ProjectController extends Controller
             throw new AccessDeniedHttpException('Access denied');
         }
         
-		$project = new Project();
+		$project = new Project($this->getUser());
 		
 		$form = $this->createForm(new ProjectType, $project);
 		
