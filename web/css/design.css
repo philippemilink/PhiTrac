@@ -1,3 +1,12 @@
 .pull-left {
 	margin-right: 5px;
 }
+
+#userbox {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#userbox img {
+    border-radius: 3px;
+}

@@ -1,0 +1,8 @@
+<h4>{{ app.user.firstName ~ " " ~ app.user.name }}</h4>
+<div class="btn-group">
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('administration_home') }}" class="btn btn-default btn-xs">Administration</a>
+    {% endif %}
+    <a href="{{ path('profile_show', { 'slug': app.user.slug }) }}" class="btn btn-default btn-xs">Profile</a>
+    <a href="{{ path('logout') }}" class="btn btn-default btn-xs">Logout</a>
+</div>

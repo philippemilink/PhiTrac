@@ -1,0 +1,41 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Administration{% endblock %}
+
+{% block project %}
+	<h2>Administration</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li class="active">Administration</li>
+{% endblock %}
+
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Users list
+                <a href="{{ path('create_user') }}" class="btn btn-default btn-xs">Create a new user</a>
+            </h3>
+        </div>
+        <div class="list-group">
+            {% for user in users %}
+                <a href="{{ path('profile_show', { 'slug': user.slug }) }}" class="list-group-item">
+                    {{ user.firstname ~ " " ~ user.name }}
+                    {% if user.role == "ROLE_SUPER_ADMIN" %}
+                        <span class="label label-danger">Super Administrator</span>
+                    {% elseif user.role == "ROLE_ADMIN" %}
+                        <span class="label label-warning">Administrator</span>
+                    {% elseif user.role == "ROLE_DEV" %}
+                        <span class="label label-success">Developer</span>
+                    {% elseif user.role == "ROLE_TESTER" %}
+                        <span class="label label-info">Tester</span>
+                    {% else %}
+                        <span class="label label-default">User</span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock%}

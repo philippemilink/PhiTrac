@@ -4,6 +4,7 @@ namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Form\ItemType;
@@ -17,6 +18,10 @@ class ItemsController extends Controller
     */ 
 	public function addAction(Project $project)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $request = $this->get('request');
         
 		$item = new Item();
@@ -87,6 +92,10 @@ class ItemsController extends Controller
     */
 	public function editAction(Project $project, Item $item) 
     {
+        if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $form = $this->createForm(new ItemType, $item);
 		
         $request = $this->get('request');
@@ -117,6 +126,10 @@ class ItemsController extends Controller
     */ 
 	public function deleteAction(Project $project, Item $item)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+        
         $form = $this->createFormBuilder()->getForm();
         
         if ($this->get('request')->getMethod()=='POST') {
@@ -136,7 +149,11 @@ class ItemsController extends Controller
     * @ParamConverter("item", options={"mapping": {"item_slug": "slug"}})
     */ 
 	public function closeAction(Project $project, Item $item)
-    {        
+    {
+        if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+                
         $item->setStatus("DONE");
         
         $em = $this->getDoctrine()->getManager();
@@ -155,7 +172,11 @@ class ItemsController extends Controller
     * @ParamConverter("item", options={"mapping": {"item_slug": "slug"}})
     */ 
 	public function reopenAction(Project $project, Item $item)
-    {        
+    {
+        if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+                
         $item->setStatus("TODO");
         
         $em = $this->getDoctrine()->getManager();

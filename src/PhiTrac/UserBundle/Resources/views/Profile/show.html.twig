@@ -1,0 +1,40 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Profile{% endblock %}
+
+{% block project %}
+	<h2>Profile of {{ user.firstname ~ " " ~ user.name }}</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    {% if user != app.user %}
+        <li><a href="{{ path('administration_home') }}">Administration</a></li>
+        <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">{{ user.firstname ~ " " ~ user.name }} - Profile</a></li>
+    {% else %}
+        <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">Profile</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('change_password', { 'slug': user.slug } ) }}" class="btn btn-default btn-xs">Change password</a>
+    </p>
+    
+    <p><strong>Full name:</strong> {{ user.firstname ~ " " ~ user.name }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p>
+        <strong>Category:</strong> 
+        {% if user.role == "ROLE_SUPER_ADMIN" %}
+            Super Administrator
+        {% elseif user.role == "ROLE_ADMIN" %}
+            Administrator
+        {% elseif user.role == "ROLE_DEV" %}
+            Developer
+        {% elseif user.role == "ROLE_TESTER" %}
+            Tester
+        {% else %}
+            User
+        {% endif %}
+    </p>
+{% endblock%}

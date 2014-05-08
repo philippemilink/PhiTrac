@@ -1,3 +1,7 @@
+phi_trac_user:
+    resource: "@PhiTracUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 phi_trac_project:
     resource: "@PhiTracProjectBundle/Resources/config/routing.yml"
     prefix:   /project
