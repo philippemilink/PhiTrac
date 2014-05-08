@@ -37,7 +37,7 @@
                 {{ item.description|nl2br }}
             {% endif %}
         </div>
-         {% if is_granted('ROLE_TESTER') %}
+         {% if is_granted('ROLE_DEV') %}
             <div class="panel-footer">
                 {% if item.status!="DONE" %}
                      {% if is_granted('ROLE_DEV') %}
@@ -68,6 +68,16 @@
                     </div>
                 {% endif %}
             </div>
+        {% else %}
+            {% if is_granted('ROLE_TESTER') and item.status=="DONE" %}
+                <div class="panel-footer">
+                    <div class="input-group col-lg-3">
+                        <span class="input-group-btn">
+                                <a href="{{ path('reopen_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="btn btn-default">Reopen</a>
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock%}
