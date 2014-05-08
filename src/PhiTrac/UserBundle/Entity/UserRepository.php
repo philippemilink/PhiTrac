@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+	public function findAllAlphabetical()
+    {
+        return $this->_em->createQueryBuilder()
+                    ->select('a')
+                    ->from('PhiTracUserBundle:User', 'a')
+                    ->orderBy('a.name')
+                    ->getQuery()
+                    ->getResult();
+    }
 }
