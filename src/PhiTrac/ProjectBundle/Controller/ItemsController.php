@@ -5,11 +5,11 @@ namespace PhiTrac\ProjectBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Form\ItemType;
 use PhiTrac\ProjectBundle\Form\ItemStatusType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ItemsController extends Controller
 {

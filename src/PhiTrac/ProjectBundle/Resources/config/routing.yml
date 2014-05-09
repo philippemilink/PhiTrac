@@ -5,7 +5,7 @@ home_project:
 
 new_project:
     path: /add/
-    defaults: { _controller: PhiTracProjectBundle:Project:add } 
+    defaults: { _controller: PhiTracProjectBundle:Project:add }
 
 edit_project:
     path: /edit/{slug}
@@ -41,6 +41,7 @@ reopen_item:
     path: /{project_slug}/reopen/{item_slug}
     defaults: { _controller: PhiTracProjectBundle:Items:reopen }
 
+
 # Image:
 set_icon:
     path: /{slug}/set_icon
@@ -50,6 +51,17 @@ delete_icon:
     path: /{slug}/delete_icon
     defaults: { _controller: PhiTracProjectBundle:Project:deleteIcon }
 
-    
 
-   
+# Members:
+members_home:
+    path: /{slug}/members
+    defaults: { _controller: PhiTracProjectBundle:Members:home }
+
+add_member:
+    path: /{slug}/members/add
+    defaults: { _controller: PhiTracProjectBundle:Members:add }
+
+remove_member:
+    path: /{project_slug}/remove/{user_slug}
+    defaults: { _controller: PhiTracProjectBundle:Members:remove }
+

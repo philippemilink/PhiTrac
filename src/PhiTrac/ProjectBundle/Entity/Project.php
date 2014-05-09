@@ -74,6 +74,12 @@ class Project
      * @ORM\ManyToOne(targetEntity="PhiTrac\UserBundle\Entity\User")
      */
     private $creator;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="PhiTrac\UserBundle\Entity\User")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $members;
     
     
     /**
@@ -277,5 +283,38 @@ class Project
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Add members
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $members
+     * @return Project
+     */
+    public function addMember(\PhiTrac\UserBundle\Entity\User $members)
+    {
+        $this->members[] = $members;
+
+        return $this;
+    }
+
+    /**
+     * Remove members
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $members
+     */
+    public function removeMember(\PhiTrac\UserBundle\Entity\User $members)
+    {
+        $this->members->removeElement($members);
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMembers()
+    {
+        return $this->members;
     }
 }

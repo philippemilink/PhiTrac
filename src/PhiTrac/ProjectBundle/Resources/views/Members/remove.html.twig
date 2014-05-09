@@ -1,0 +1,28 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ project.name }}{% endblock %}
+
+{% block project %}
+    {{ render(controller("PhiTracProjectBundle:Project:header", {"project": project})) }}
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li><a href="{{ path('members_home', { 'slug': project.slug } ) }}">Members</a></li>
+    <li class="active">Remove {{ user.firstname ~ " " ~ user.name }} from the project</li>
+{% endblock %}
+
+{% block body %}
+    <h3>Delete user <i>{{ user.firstname ~ " " ~ user.name }}</i> from the project {{ project.name }} ?</h3>
+    
+    <p>Are you sure you want remove this user ?</p>
+    
+    <form method="post">
+        <a href="{{ path('members_home', { 'slug': project.slug } ) }}" class="btn btn-default">
+             No
+        </a>
+        <input type="submit" value="Yes" class="btn btn-danger" />
+        {{ form_rest(form) }}
+    </form>
+{% endblock%}

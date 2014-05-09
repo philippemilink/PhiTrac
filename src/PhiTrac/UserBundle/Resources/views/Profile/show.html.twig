@@ -10,7 +10,7 @@
     {{ parent() }}
     {% if user != app.user %}
         <li><a href="{{ path('administration_home') }}">Administration</a></li>
-        <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">{{ user.firstname ~ " " ~ user.name }} - Profile</a></li>
+        <li class="active">{{ user.firstname ~ " " ~ user.name }} - Profile</li>
     {% else %}
         <li><a href="{{ path('profile_show', { 'slug': user.slug } ) }}">Profile</a></li>
     {% endif %}
