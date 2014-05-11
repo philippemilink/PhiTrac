@@ -28,15 +28,16 @@
                 {% if item.priority=='IMPORTANT' %}
                     <span class="label label-warning">Important</span>
                 {% endif %}
+                <i class="small-italic">Opened by <strong>{{ item.creator.firstName ~ " " ~ item.creator.name }}</strong></i>
             </h3>
         </div>
-        <div class="panel-body">
+        <p class="panel-body">
             {% if item.description==null %}
                 <i>No description available.</i>
             {% else %}
                 {{ item.description|nl2br }}
-            {% endif %}
-        </div>
+            {% endif %}            
+        </p>
          {% if is_granted('ROLE_DEV') %}
             <div class="panel-footer">
                 {% if item.status!="DONE" %}

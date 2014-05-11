@@ -40,6 +40,7 @@ class ItemsController extends Controller
         
 		$item = new Item();
 		$item->setProject($project);
+        $item->setCreator($this->getUser());
 		if ($request->query->get('type')!=null) {
 		    if ($request->query->get('type')=='BUG') {
 		        $item->setType('BUG');
