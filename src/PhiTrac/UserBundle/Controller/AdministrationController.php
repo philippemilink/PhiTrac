@@ -12,7 +12,7 @@ class AdministrationController extends Controller
     public function homeAction()
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('PhiTracUserBundle:User');
-        $users = $repository->findAll();
+        $users = $repository->findAllAlphabetical();
         
         return $this->render('PhiTracUserBundle:Administration:home.html.twig', array("users" => $users));
     }

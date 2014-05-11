@@ -26,6 +26,20 @@ class ProjectController extends Controller
 		} else { // A project is selected
 		    $repository = $this->getDoctrine()->getManager()->getRepository('PhiTracProjectBundle:Project');
             $project = $repository->findOneBySlug($slug);
+
+            $allowed = false;
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+                $allowed = true;
+            } else {
+                foreach ($project->getMembers() as $member) {
+                    if ($member===$this->getUser()) {
+                        $allowed = true;
+                    }
+                }
+            }
+            if (!$allowed) {
+                throw new AccessDeniedHttpException('Access denied');
+            }
             
             if ($project===null) {
                 throw $this->createNotFoundException('Project not found.');
@@ -44,7 +58,7 @@ class ProjectController extends Controller
             throw new AccessDeniedHttpException('Access denied');
         }
         
-		$project = new Project();
+		$project = new Project($this->getUser());
 		
 		$form = $this->createForm(new ProjectType, $project);
 		
@@ -198,7 +212,12 @@ class ProjectController extends Controller
 	public function menuAction($currentUrl)
 	{
 		$repository = $this->getDoctrine()->getManager()->getRepository('PhiTracProjectBundle:Project');
-        $projects = $repository->findAllAlphabetical();
+
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $projects = $repository->findAllAlphabetical();
+        } else {
+            $projects = $repository->findProjectWhereUserIsMember($this->getUser());
+        }
         
         $currentProject = null;
         foreach ($projects as $project) {

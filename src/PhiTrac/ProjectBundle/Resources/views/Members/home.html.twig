@@ -1,0 +1,53 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ project.name }} - Members{% endblock %}
+
+{% block project %}
+   <h1>Members of {{ project.name }}</h2>
+{% endblock %}
+
+{% block guideline %}
+    {{ parent() }}
+    <li><a href="{{ path('home_project', { 'slug': project.slug }) }}">{{ project.name }}</a></li>
+    <li class="active">Members</li>
+{% endblock %}
+
+{% block body %}
+    <p>
+        <strong>Creator:</strong> {{ project.creator.firstName ~ " " ~ project.creator.name }}
+    </p>
+
+     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Members
+            </h3>
+        </div>
+        <ul class="list-group">
+            {% if project.members|length == 0 %}
+                <li class="list-group-item"><i>No members.</i></li>
+            {% else %}
+                {% for member in project.members %}
+                    <li class="list-group-item">
+                        {{ member.firstname ~ " " ~ member.name }}
+                        <a href="{{ path('remove_member', { 'project_slug' : project.slug, 'user_slug': member.slug } ) }}" class="btn btn-default btn-xs">Remove</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+        <div class="panel-footer">
+            <form method="post">
+                <div class="input-group col-lg-3">
+                    <select name="userToAdd" class="form-control input-sm">
+                        {% for user in users %}
+                            <option value="{{ user.slug }}">{{ user.firstname ~ " " ~ user.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="input-group-btn">
+                        <input class="btn btn-default input-sm" type="submit" value="Add this member" />
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock%}

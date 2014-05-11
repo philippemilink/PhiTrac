@@ -5,11 +5,11 @@ namespace PhiTrac\ProjectBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Form\ItemType;
 use PhiTrac\ProjectBundle\Form\ItemStatusType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ItemsController extends Controller
 {
@@ -21,11 +21,26 @@ class ItemsController extends Controller
         if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
             throw new AccessDeniedHttpException('Access denied');
         }
+
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
         
         $request = $this->get('request');
         
 		$item = new Item();
 		$item->setProject($project);
+        $item->setCreator($this->getUser());
 		if ($request->query->get('type')!=null) {
 		    if ($request->query->get('type')=='BUG') {
 		        $item->setType('BUG');
@@ -62,6 +77,20 @@ class ItemsController extends Controller
     */
     public function showAction(Project $project, Item $item) 
     {
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+
         $request = $this->get('request');
         $form = $this->createForm(new ItemStatusType, $item);
         
@@ -93,6 +122,20 @@ class ItemsController extends Controller
 	public function editAction(Project $project, Item $item) 
     {
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
             throw new AccessDeniedHttpException('Access denied');
         }
         
@@ -129,6 +172,20 @@ class ItemsController extends Controller
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
             throw new AccessDeniedHttpException('Access denied');
         }
+
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
         
         $form = $this->createFormBuilder()->getForm();
         
@@ -153,6 +210,20 @@ class ItemsController extends Controller
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
             throw new AccessDeniedHttpException('Access denied');
         }
+
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
                 
         $item->setStatus("DONE");
         
@@ -174,6 +245,20 @@ class ItemsController extends Controller
 	public function reopenAction(Project $project, Item $item)
     {
         if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+
+        $allowed = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $allowed = true;
+        } else {
+            foreach ($project->getMembers() as $member) {
+                if ($member===$this->getUser()) {
+                    $allowed = true;
+                }
+            }
+        }
+        if (!$allowed) {
             throw new AccessDeniedHttpException('Access denied');
         }
                 

@@ -4,6 +4,7 @@ namespace PhiTrac\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use PhiTrac\UserBundle\Entity\User;
 
 /**
  * Item
@@ -64,6 +65,11 @@ class Item
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PhiTrac\UserBundle\Entity\User")
+     */
+    private $creator;
     
     /**
      * @ORM\ManyToOne(targetEntity="PhiTrac\ProjectBundle\Entity\Project", inversedBy="items", cascade={"persist"})
@@ -290,5 +296,28 @@ class Item
             $todo--;
             $this->getProject()->setTodo($todo);
         }
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $creator
+     * @return Item
+     */
+    public function setCreator(\PhiTrac\UserBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \PhiTrac\UserBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
     }
 }

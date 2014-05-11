@@ -3,6 +3,7 @@
 namespace PhiTrac\ProjectBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use PhiTrac\UserBundle\Entity\User;
 
 /**
  * ProjectRepository
@@ -19,6 +20,16 @@ class ProjectRepository extends EntityRepository
                     ->from('PhiTracProjectBundle:Project', 'a')
                     ->orderBy('a.name')
                     ->getQuery()
+                    ->getResult();
+    }
+
+    public function findProjectWhereUserIsMember(User $user)
+    {
+        return $this->createQueryBuilder('p')
+                    ->join('p.members', 'm', 'WITH', 'm.id = :id')
+                    ->addSelect('m')
+                    ->getQuery()
+                    ->setParameter('id', $user->getId())
                     ->getResult();
     } 
 }

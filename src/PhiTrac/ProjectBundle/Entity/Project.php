@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
+use PhiTrac\UserBundle\Entity\User;
 
 /**
  * Project
@@ -68,16 +69,28 @@ class Project
      * @ORM\OneToMany(targetEntity="PhiTrac\ProjectBundle\Entity\Item", mappedBy="project", cascade={"persist", "remove"})
      */
     private $items;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PhiTrac\UserBundle\Entity\User")
+     */
+    private $creator;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="PhiTrac\UserBundle\Entity\User")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $members;
     
     
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(\PhiTrac\UserBundle\Entity\User $user)
     {
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->todo = 0;
         $this->tempIconPathName = null;
+        $this->creator = $user;
     }
     
     public function checkWebsite(ExecutionContextInterface $context)
@@ -247,5 +260,61 @@ class Project
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $creator
+     * @return Project
+     */
+    public function setCreator(\PhiTrac\UserBundle\Entity\User $creator)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \PhiTrac\UserBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Add members
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $members
+     * @return Project
+     */
+    public function addMember(\PhiTrac\UserBundle\Entity\User $members)
+    {
+        $this->members[] = $members;
+
+        return $this;
+    }
+
+    /**
+     * Remove members
+     *
+     * @param \PhiTrac\UserBundle\Entity\User $members
+     */
+    public function removeMember(\PhiTrac\UserBundle\Entity\User $members)
+    {
+        $this->members->removeElement($members);
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMembers()
+    {
+        return $this->members;
     }
 }

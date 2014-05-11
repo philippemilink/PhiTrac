@@ -5,8 +5,13 @@
 #userbox {
     margin-top: 5px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 #userbox img {
     border-radius: 3px;
+}
+
+.small-italic {
+	font-size: 12px;
 }

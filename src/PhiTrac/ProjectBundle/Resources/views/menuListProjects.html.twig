@@ -8,14 +8,18 @@
 			</h3>
 		</div>
 		<div class="list-group">
-			{% for project in projects %}
-				<a href="{{ path('home_project', { 'slug': project.slug }) }}" class="list-group-item {% if currentProject==project.slug %} active {% endif %}">
-					{{ project.name }} 
-					{% if project.todo > 0 %}
-						<span class="badge">{{ project.todo }}</span>
-					{% endif %}
-				</a>
-			{% endfor %}
+			{% if projects|length > 0 %}
+				{% for project in projects %}
+					<a href="{{ path('home_project', { 'slug': project.slug }) }}" class="list-group-item {% if currentProject==project.slug %} active {% endif %}">
+						{{ project.name }} 
+						{% if project.todo > 0 %}
+							<span class="badge">{{ project.todo }}</span>
+						{% endif %}
+					</a>
+				{% endfor %}
+			{% else %}
+				<a class="list-group-item" href="#"><i>No project.</i></a>
+			{% endif %}
 		</div>
 	</div>
 </div>

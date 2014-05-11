@@ -15,19 +15,32 @@
     {% endif %}
 	<h1>{{ project.name }}
 	    {% if is_granted('ROLE_ADMIN') %}
-		    <a href="{{ path('edit_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Edit</a>
-		    {% if project.icon == null %}
-		        <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Add an icon</a>
-	        {% else %}
-	            <div class="btn-group">
-	                <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Change icon</a> 
-	                <a href="{{ path('delete_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete icon</a>
-                </div>
-            {% endif %}
-		    <a href="{{ path('delete_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete</a>
+	    	<div class="btn-group">
+			    <a href="{{ path('edit_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Edit</a>
+			    <a href="{{ path('members_home', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Members</a>
+			    {% if project.icon == null %}
+			        <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Add an icon</a>
+		        {% else %}
+		            <div class="btn-group">
+		                <a href="{{ path('set_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Change icon</a> 
+		                <a href="{{ path('delete_icon', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete icon</a>
+	                </div>
+	            {% endif %}
+			    <a href="{{ path('delete_project', { 'slug': project.slug }) }}" class="btn btn-default btn-xs">Delete</a>
+			</div>
 	    {% endif %}				
 	</h1>
 	<p>
+		<strong>Creator:</strong> {{ project.creator.firstName ~ " " ~ project.creator.name }}<br />
+		{% if project.members|length > 0 %}
+			<strong>Members:</strong> 
+			{% for member in project.members %} 
+				{{ member.firstName ~ " " ~ member.name }} 
+				{% if loop.last != true %}
+					, 
+				{% endif %} 
+			{% endfor %} <br />
+		{% endif %}
 	    {% if project.website != null %}
 		    <strong>Website:</strong> <a href="{{ project.website }}">{{ project.website }}</a><br />
 	    {% endif %}
