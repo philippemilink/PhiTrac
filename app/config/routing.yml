@@ -12,4 +12,3 @@ empty_route:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /project
         permanent: true
-
