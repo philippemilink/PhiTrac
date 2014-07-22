@@ -7,6 +7,11 @@ $(function()
     $("#list-bugs a, #list-todo a").on("mouseout", function() {
         $(this).children("button").hide();
     });
+
+    $('[data-toggle="popover"]').popover({
+        placement:'top', 
+        trigger:'hover'
+    });
     
     $("a").on("click", "#btn_close", function(event) {
         var item = $(this).parent();
