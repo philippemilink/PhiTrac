@@ -47,3 +47,10 @@
 	</form>
 </div>
 {% endblock%}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/elastic.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/items.js') }}" type="text/javascript"></script>
+{% endblock %}
