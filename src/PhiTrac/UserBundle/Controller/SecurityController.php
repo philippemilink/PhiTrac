@@ -9,7 +9,7 @@ class SecurityController extends Controller
 {
     public function loginAction()
     {
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->get('session')->get('_security_main')) {
             return $this->redirect($this->generateUrl('home_project'));
         }
         
