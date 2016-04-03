@@ -95,7 +95,7 @@ class Project
     
     public function checkWebsite(ExecutionContextInterface $context)
     {
-        if ($this->website==null) {
+        if ($this->website===null) {
             return;
         }
         

@@ -152,7 +152,7 @@ class ProjectController extends Controller
             if ($form->isValid()) {
 		        $em = $this->getDoctrine()->getManager();
 		        
-		        if ($project->getIcon()==null) { // No icon before
+		        if ($project->getIcon()===null) { // No icon before
 		            $project->setIcon($icon);
 		        } else { // An icon existed before
 		            $oldIcon = $project->getIcon();
@@ -181,7 +181,7 @@ class ProjectController extends Controller
             throw new AccessDeniedException('Access denied');
         }
         
-        if ($project->getIcon()==null) {
+        if ($project->getIcon()===null) {
             throw $this->createNotFoundException('This project has not an icon.');
         }
         

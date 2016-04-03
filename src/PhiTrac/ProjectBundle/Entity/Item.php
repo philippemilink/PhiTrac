@@ -270,7 +270,7 @@ class Item
         if ($this->getStatus()!=$this->previousStatus) { // Status changed
             $todo = $this->getProject()->getTodo();
             
-            if ($this->previousStatus==null) { // Just created
+            if ($this->previousStatus===null) { // Just created
                 if ($this->getStatus()!="DONE") {
                     $todo++;
                 }
