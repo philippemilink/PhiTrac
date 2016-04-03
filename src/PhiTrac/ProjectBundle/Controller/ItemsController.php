@@ -4,7 +4,7 @@ namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
@@ -19,7 +19,7 @@ class ItemsController extends Controller
 	public function addAction(Project $project)
     {
         if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $allowed = false;
@@ -33,7 +33,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $request = $this->get('request');
@@ -88,7 +88,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $request = $this->get('request');
@@ -122,7 +122,7 @@ class ItemsController extends Controller
 	public function editAction(Project $project, Item $item) 
     {
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $allowed = false;
@@ -136,7 +136,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $form = $this->createForm(new ItemType, $item);
@@ -170,7 +170,7 @@ class ItemsController extends Controller
 	public function deleteAction(Project $project, Item $item)
     {
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $allowed = false;
@@ -184,7 +184,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $form = $this->createFormBuilder()->getForm();
@@ -208,7 +208,7 @@ class ItemsController extends Controller
 	public function closeAction(Project $project, Item $item)
     {
         if (!$this->get('security.context')->isGranted('ROLE_DEV')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $allowed = false;
@@ -222,7 +222,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
                 
         $item->setStatus("DONE");
@@ -245,7 +245,7 @@ class ItemsController extends Controller
 	public function reopenAction(Project $project, Item $item)
     {
         if (!$this->get('security.context')->isGranted('ROLE_TESTER')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $allowed = false;
@@ -259,7 +259,7 @@ class ItemsController extends Controller
             }
         }
         if (!$allowed) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
                 
         $item->setStatus("TODO");

@@ -4,7 +4,7 @@ namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\UserBundle\Entity\User;
@@ -19,7 +19,7 @@ class MembersController extends Controller
     public function homeAction(Project $project) 
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         } 
 
         $request = $this->get('request');
@@ -52,7 +52,7 @@ class MembersController extends Controller
 	public function removeAction(Project $project, User $user)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $form = $this->createFormBuilder()->getForm();

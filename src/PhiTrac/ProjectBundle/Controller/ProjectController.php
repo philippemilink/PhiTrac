@@ -4,7 +4,7 @@ namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Entity\Image;
@@ -38,7 +38,7 @@ class ProjectController extends Controller
                 }
             }
             if (!$allowed) {
-                throw new AccessDeniedHttpException('Access denied');
+                throw new AccessDeniedException('Access denied');
             }
             
             if ($project===null) {
@@ -55,7 +55,7 @@ class ProjectController extends Controller
 	public function addAction()
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
 		$project = new Project($this->getUser());
@@ -86,7 +86,7 @@ class ProjectController extends Controller
 	public function editAction(Project $project) 
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $form = $this->createForm(new ProjectEditType, $project);
@@ -115,7 +115,7 @@ class ProjectController extends Controller
 	public function deleteAction(Project $project)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $form = $this->createFormBuilder()->getForm();
@@ -138,7 +138,7 @@ class ProjectController extends Controller
 	public function setIconAction(Project $project) 
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         $icon = new Image();
@@ -178,7 +178,7 @@ class ProjectController extends Controller
 	public function deleteIconAction(Project $project)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
         
         if ($project->getIcon()==null) {

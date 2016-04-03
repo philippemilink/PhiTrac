@@ -4,7 +4,7 @@ namespace PhiTrac\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PhiTrac\UserBundle\Entity\User;
 
 class PasswordController extends Controller
@@ -12,7 +12,7 @@ class PasswordController extends Controller
     public function changeAction(User $user)
     {
         if ($user!=$this->getUser() && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedHttpException('Access denied');
+            throw new AccessDeniedException('Access denied');
         }
 
         $errors = null;
