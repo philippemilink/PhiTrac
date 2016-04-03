@@ -8,8 +8,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
-use PhiTrac\ProjectBundle\Form\ItemType;
-use PhiTrac\ProjectBundle\Form\ItemStatusType;
+use PhiTrac\ProjectBundle\Form\Type\ItemType;
+use PhiTrac\ProjectBundle\Form\Type\ItemStatusType;
 
 class ItemsController extends Controller
 {

@@ -8,9 +8,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PhiTrac\ProjectBundle\Entity\Project;
 use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Entity\Image;
-use PhiTrac\ProjectBundle\Form\ProjectType;
-use PhiTrac\ProjectBundle\Form\ProjectEditType;
-use PhiTrac\ProjectBundle\Form\ImageType;
+use PhiTrac\ProjectBundle\Form\Type\ProjectType;
+use PhiTrac\ProjectBundle\Form\Type\ProjectEditType;
+use PhiTrac\ProjectBundle\Form\Type\ImageType;
 
 class ProjectController extends Controller
 {

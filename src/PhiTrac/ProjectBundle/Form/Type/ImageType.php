@@ -1,13 +1,12 @@
 <?php
 
-namespace PhiTrac\ProjectBundle\Form;
+namespace PhiTrac\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use PhiTrac\ProjectBundle\Form\ImageType;
 
-class ProjectType extends AbstractType
+class ImageType extends AbstractType
 {
      /**
      * @param FormBuilderInterface $builder
@@ -16,9 +15,7 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('icon', new ImageType(), array('required' => false))
-            ->add('website', 'text', array('required' => false))
+            ->add('file', 'file')
         ;
     }
     
@@ -28,7 +25,7 @@ class ProjectType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PhiTrac\ProjectBundle\Entity\Project'
+            'data_class' => 'PhiTrac\ProjectBundle\Entity\Image'
         ));
     }
 
@@ -37,6 +34,6 @@ class ProjectType extends AbstractType
      */
     public function getName()
     {
-        return 'phitrac_projectbundle_project';
+        return 'phitrac_projectbundle_image';
     }
 }
