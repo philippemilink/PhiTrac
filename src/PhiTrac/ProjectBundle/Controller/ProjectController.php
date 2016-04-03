@@ -3,10 +3,8 @@
 namespace PhiTrac\ProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use PhiTrac\ProjectBundle\Entity\Project;
-use PhiTrac\ProjectBundle\Entity\Item;
 use PhiTrac\ProjectBundle\Entity\Image;
 use PhiTrac\ProjectBundle\Form\Type\ProjectType;
 use PhiTrac\ProjectBundle\Form\Type\ProjectEditType;
