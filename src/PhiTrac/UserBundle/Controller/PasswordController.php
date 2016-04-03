@@ -11,7 +11,7 @@ class PasswordController extends Controller
 {
     public function changeAction(User $user)
     {
-        if ($user!=$this->getUser() AND !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if ($user!=$this->getUser() && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedHttpException('Access denied');
         }
 
