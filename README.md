@@ -3,6 +3,8 @@ PhiTrac
 
 A light bugtracker built with Symfony2.
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d7c6d9d9-0ffc-4ba0-a21a-0a92530d082a/big.png)](https://insight.sensiolabs.com/projects/d7c6d9d9-0ffc-4ba0-a21a-0a92530d082a)
+
 ## Install
 - Import Symfony2 using composer : ```composer install```
 - Create database : ```doctrine:database:create```
