@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
 use PhiTrac\UserBundle\Entity\User;
 
 /**
@@ -93,7 +92,7 @@ class Project
         $this->creator = $user;
     }
     
-    public function checkWebsite(ExecutionContextInterface $context)
+    public function checkWebsite()
     {
         if ($this->website===null) {
             return;
