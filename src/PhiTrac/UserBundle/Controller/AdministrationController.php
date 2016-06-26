@@ -4,7 +4,7 @@ namespace PhiTrac\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PhiTrac\UserBundle\Entity\User;
-use PhiTrac\UserBundle\Form\UserType;
+use PhiTrac\UserBundle\Form\Type\UserType;
 
 class AdministrationController extends Controller
 {

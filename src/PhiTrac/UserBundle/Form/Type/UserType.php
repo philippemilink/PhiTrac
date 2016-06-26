@@ -1,6 +1,6 @@
 <?php
 
-namespace PhiTrac\UserBundle\Form;
+namespace PhiTrac\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
