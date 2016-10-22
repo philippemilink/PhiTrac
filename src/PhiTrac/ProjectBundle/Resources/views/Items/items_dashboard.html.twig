@@ -13,7 +13,7 @@
 				    {% for item in project.items %}
 				        {% if item.type=='BUG' and item.status!='DONE' %}
 				        	{% if item.description is not null %}
-				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item" data-toggle="popover" data-content="{{ item.description }}" title="{{ item.title }}">
+				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item" data-toggle="popover" data-html="true" data-content="{{ item.description|nl2br }}" title="{{ item.title }}">
 		            		{% else %}
 				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item">
 		            		{% endif %}
@@ -51,7 +51,7 @@
 				    {% for item in project.items %}
 				        {% if item.type=='TODO' and item.status!='DONE' %}
 				        	{% if item.description is not null %}
-				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item" id="item" data-toggle="popover" data-content="{{ item.description }}" title="{{ item.title }}">
+				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item" id="item" data-toggle="popover" data-html="true" data-content="{{ item.description|nl2br }}" title="{{ item.title }}">
 				            {% else %}
 				            	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item" id="item">
 			                {% endif %}
@@ -87,14 +87,14 @@
 				        {% if item.status=='DONE' %}
 				            {% if item.type=='BUG' %}
 				            	{% if item.description is not null %}
-				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-danger" data-toggle="popover" data-content="{{ item.description }}" title="{{ item.title }}">{{ item.title }}</a>
+				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-danger" data-toggle="popover" data-html="true" data-content="{{ item.description|nl2br }}" title="{{ item.title }}">{{ item.title }}</a>
 				                {% else %}
 				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-danger">{{ item.title }}</a>
 				                {% endif %}
 			                {% endif %}
 			                {% if item.type=='TODO' %}
 			                	{% if item.description is not null %}
-				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-info" data-toggle="popover" data-content="{{ item.description }}" title="{{ item.title }}">{{ item.title }}</a>
+				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-info" data-toggle="popover" data-html="true" data-content="{{ item.description|nl2br }}" title="{{ item.title }}">{{ item.title }}</a>
 				                {% else %}
 				                	<a href="{{ path('show_item', { 'project_slug': project.slug, 'item_slug': item.slug }) }}" class="list-group-item list-group-item-info">{{ item.title }}</a>
 				                {% endif %}
